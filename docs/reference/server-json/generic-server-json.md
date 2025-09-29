@@ -670,6 +670,103 @@ For MCP servers that follow a custom installation path or are embedded in applic
 }
 ```
 
+### Multi-Tenant Remote Server with URL Templating
+
+This example demonstrates how to use URL templating for remote servers deployed across multiple tenants or regions, addressing scenarios where each deployment has its own endpoint:
+
+```json
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-16/server.schema.json",
+  "name": "io.github.example/multi-tenant-analytics",
+  "description": "Multi-tenant analytics MCP server with region-specific endpoints",
+  "repository": {
+    "url": "https://github.com/example/multi-tenant-analytics",
+    "source": "github",
+    "id": "tenant-abc123-def456-789012-345678-901234567890"
+  },
+  "version": "2.1.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://{tenant_host}/api/ai/v1/mcp/",
+      "headers": [
+        {
+          "name": "X-API-Key",
+          "description": "API key for authentication",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "X-Region",
+          "value": "{deployment_region}",
+          "description": "Deployment region identifier"
+        }
+      ],
+      "environmentVariables": [
+        {
+          "name": "TENANT_HOST",
+          "description": "Tenant-specific hostname (e.g., 'us-cell1.example.com', 'emea-cell1.example.com')",
+          "isRequired": true
+        },
+        {
+          "name": "DEPLOYMENT_REGION",
+          "description": "Deployment region code",
+          "default": "us-east-1",
+          "choices": [
+            "us-east-1",
+            "us-west-2",
+            "eu-west-1",
+            "ap-southeast-1"
+          ]
+        }
+      ],
+      "arguments": [
+        {
+          "type": "positional",
+          "valueHint": "tenant_host",
+          "description": "Override tenant host from environment",
+          "isRequired": false
+        },
+        {
+          "type": "positional",
+          "valueHint": "deployment_region",
+          "description": "Override deployment region from environment",
+          "isRequired": false
+        }
+      ]
+    },
+    {
+      "type": "sse",
+      "url": "https://{tenant_host}/api/ai/v1/mcp/events",
+      "environmentVariables": [
+        {
+          "name": "TENANT_HOST",
+          "description": "Tenant-specific hostname",
+          "isRequired": true
+        }
+      ]
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "tool": "multi-tenant-deployer",
+      "version": "1.5.0",
+      "build_info": {
+        "timestamp": "2023-12-15T10:45:00Z",
+        "supported_tenants": ["us-cell1", "us-cell2", "emea-cell1", "apac-cell1"],
+        "deployment_strategy": "multi-region"
+      }
+    }
+  }
+}
+```
+
+This configuration allows clients to:
+- Set `TENANT_HOST=us-cell1.example.com` to connect to US Cell 1
+- Set `TENANT_HOST=emea-cell1.example.com` to connect to EMEA Cell 1
+- Specify the deployment region for proper routing
+- Use either streamable-http or SSE transports with the same tenant-specific endpoints
+
 ### Deprecated Server Example
 
 ```json

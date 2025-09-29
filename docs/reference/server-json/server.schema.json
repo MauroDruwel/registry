@@ -377,12 +377,26 @@
         },
         "url": {
           "type": "string",
-          "description": "URL template for the streamable-http transport. Variables in {curly_braces} reference argument valueHints, argument names, or environment variable names. After variable substitution, this should produce a valid URI.",
+          "description": "URL template for the streamable-http transport. Variables in {curly_braces} reference argument valueHints from 'arguments' array or names from 'environmentVariables' array. If arguments/environmentVariables are not provided, {curly_braces} should be treated as literal text. After variable substitution, this should produce a valid URI.",
           "example": "https://api.example.com/mcp"
         },
         "headers": {
           "type": "array",
           "description": "HTTP headers to include",
+          "items": {
+            "$ref": "#/definitions/KeyValueInput"
+          }
+        },
+        "arguments": {
+          "type": "array",
+          "description": "Arguments that can be referenced in URL template {curly_braces} via their valueHint property",
+          "items": {
+            "$ref": "#/definitions/Argument"
+          }
+        },
+        "environmentVariables": {
+          "type": "array",
+          "description": "Environment variables that can be referenced in URL template {curly_braces} via their name property",
           "items": {
             "$ref": "#/definitions/KeyValueInput"
           }
@@ -407,12 +421,26 @@
         "url": {
           "type": "string",
           "format": "uri",
-          "description": "Server-Sent Events endpoint URL",
+          "description": "Server-Sent Events endpoint URL template. Variables in {curly_braces} reference argument valueHints from 'arguments' array or names from 'environmentVariables' array. If arguments/environmentVariables are not provided, {curly_braces} should be treated as literal text. After variable substitution, this should produce a valid URI.",
           "example": "https://mcp-fs.example.com/sse"
         },
         "headers": {
           "type": "array",
           "description": "HTTP headers to include",
+          "items": {
+            "$ref": "#/definitions/KeyValueInput"
+          }
+        },
+        "arguments": {
+          "type": "array",
+          "description": "Arguments that can be referenced in URL template {curly_braces} via their valueHint property",
+          "items": {
+            "$ref": "#/definitions/Argument"
+          }
+        },
+        "environmentVariables": {
+          "type": "array",
+          "description": "Environment variables that can be referenced in URL template {curly_braces} via their name property",
           "items": {
             "$ref": "#/definitions/KeyValueInput"
           }
