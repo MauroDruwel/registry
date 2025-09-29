@@ -683,9 +683,10 @@ This example demonstrates URL templating for remote servers, useful for multi-te
     {
       "type": "streamable-http",
       "url": "https://{tenant_host}/api/mcp",
-      "environmentVariables": [
+      "arguments": [
         {
-          "name": "TENANT_HOST",
+          "type": "positional",
+          "valueHint": "tenant_host",
           "description": "Tenant-specific hostname (e.g., 'us-cell1.example.com')",
           "isRequired": true
         }
@@ -695,7 +696,7 @@ This example demonstrates URL templating for remote servers, useful for multi-te
 }
 ```
 
-Clients can set `TENANT_HOST=us-cell1.example.com` to connect to US Cell 1, or `TENANT_HOST=emea.example.com` to connect to the EMEA deployment. The `{tenant_host}` variable in the URL will be replaced with the environment variable value.
+Clients would configure the tenant host value, and the `{tenant_host}` variable in the URL gets replaced with the provided argument value to connect to the appropriate deployment (e.g., `us-cell1.example.com` or `emea.example.com`).
 
 ### Deprecated Server Example
 
