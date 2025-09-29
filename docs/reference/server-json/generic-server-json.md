@@ -674,13 +674,13 @@ This example demonstrates URL templating for remote servers, useful for multi-te
 
 ```json
 {
-  "name": "io.github.example/multi-tenant-server",
+  "name": "io.modelcontextprotocol.anonymous/multi-tenant-server",
   "description": "MCP server with configurable remote endpoint",
   "version": "1.0.0",
   "remotes": [
     {
       "type": "streamable-http",
-      "url": "https://api.example.github.io/mcp/{tenant_id}",
+      "url": "https://anonymous.modelcontextprotocol.io/mcp/{tenant_id}",
       "variables": {
         "tenant_id": {
           "description": "Tenant identifier (e.g., 'us-cell1', 'emea-cell1')",
@@ -692,7 +692,7 @@ This example demonstrates URL templating for remote servers, useful for multi-te
 }
 ```
 
-Clients configure the tenant identifier, and the `{tenant_id}` variable in the URL gets replaced with the provided variable value to connect to the appropriate tenant endpoint (e.g., `https://api.example.github.io/mcp/us-cell1` or `https://api.example.github.io/mcp/emea-cell1`).
+Clients configure the tenant identifier, and the `{tenant_id}` variable in the URL gets replaced with the provided variable value to connect to the appropriate tenant endpoint (e.g., `https://anonymous.modelcontextprotocol.io/mcp/us-cell1` or `https://anonymous.modelcontextprotocol.io/mcp/emea-cell1`).
 
 ### Local Server with URL Templating
 
