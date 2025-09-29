@@ -22,7 +22,6 @@ The official registry has some more restrictions on top of this. See the [offici
 
 ```json
 {
-  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-16/server.schema.json",
   "name": "io.modelcontextprotocol.anonymous/brave-search",
   "description": "MCP server for Brave Search API integration",
   "status": "active",
@@ -69,7 +68,6 @@ For MCP servers located within a subdirectory of a larger repository (monorepo s
 
 ```json
 {
-  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-16/server.schema.json",
   "name": "io.modelcontextprotocol/everything",
   "description": "MCP server that exercises all the features of the MCP protocol",
   "status": "active",
@@ -151,7 +149,7 @@ This will essentially instruct the MCP client to execute `dnx Knapcode.SampleMcp
 
 ```json
 {
-  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-16/server.schema.json",
+
   "name": "io.github.modelcontextprotocol/filesystem",
   "description": "Node.js server implementing Model Context Protocol (MCP) for filesystem operations.",
   "status": "active",
@@ -498,7 +496,7 @@ The `dnx` tool ships with the .NET 10 SDK, starting with Preview 6.
 
 ```json
 {
-  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-16/server.schema.json",
+
   "name": "io.modelcontextprotocol.anonymous/hybrid-mcp",
   "description": "MCP server available as both local package and remote service",
   "repository": {
@@ -626,7 +624,7 @@ Some CLI tools bundle an MCP server, without a standalone MCP package or a publi
 
 ```json
 {
-  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-16/server.schema.json",
+
   "name": "io.snyk/cli-mcp",
   "description": "MCP server provided by the Snyk CLI",
   "status": "active",
@@ -661,7 +659,7 @@ For MCP servers that follow a custom installation path or are embedded in applic
 
 ```json
 {
-  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-16/server.schema.json",
+
   "name": "io.modelcontextprotocol.anonymous/embedded-mcp",
   "description": "MCP server embedded in a Desktop app",
   "status": "active",
