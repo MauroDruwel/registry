@@ -360,6 +360,11 @@ func validateRemoteTransport(obj *model.Transport) error {
 			}
 			return fmt.Errorf("%w: %s", ErrInvalidRemoteURL, obj.URL)
 		}
+
+		// Additional check: reject localhost URLs for remotes (like the old IsValidRemoteURL did)
+		if !IsValidRemoteURL(obj.URL) {
+			return fmt.Errorf("%w: %s", ErrInvalidRemoteURL, obj.URL)
+		}
 		return nil
 	default:
 		return fmt.Errorf("unsupported transport type for remotes: %s (only streamable-http and sse are supported)", obj.Type)
