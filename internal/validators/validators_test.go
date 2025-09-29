@@ -892,10 +892,10 @@ func TestValidate_ServerNameFormat(t *testing.T) {
 
 func TestValidate_MultipleSlashesInServerName(t *testing.T) {
 	tests := []struct {
-		name         string
-		serverName   string
-		expectError  bool
-		errorMsg     string
+		name        string
+		serverName  string
+		expectError bool
+		errorMsg    string
 	}{
 		{
 			name:        "single slash - valid",

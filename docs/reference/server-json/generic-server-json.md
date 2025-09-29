@@ -682,12 +682,11 @@ This example demonstrates URL templating for remote servers, useful for multi-te
   "remotes": [
     {
       "type": "streamable-http",
-      "url": "https://{tenant_host}/api/mcp",
-      "arguments": [
+      "url": "https://api.example.github.io/mcp/{tenant_id}",
+      "variables": [
         {
-          "type": "positional",
-          "valueHint": "tenant_host",
-          "description": "Tenant-specific hostname (e.g., 'us-cell1.example.com')",
+          "name": "tenant_id",
+          "description": "Tenant identifier (e.g., 'us-cell1', 'emea-cell1')",
           "isRequired": true
         }
       ]
@@ -696,7 +695,7 @@ This example demonstrates URL templating for remote servers, useful for multi-te
 }
 ```
 
-Clients would configure the tenant host value, and the `{tenant_host}` variable in the URL gets replaced with the provided argument value to connect to the appropriate deployment (e.g., `us-cell1.example.com` or `emea.example.com`).
+Clients configure the tenant identifier, and the `{tenant_id}` variable in the URL gets replaced with the provided variable value to connect to the appropriate tenant endpoint (e.g., `https://api.example.github.io/mcp/us-cell1` or `https://api.example.github.io/mcp/emea-cell1`).
 
 ### Deprecated Server Example
 
