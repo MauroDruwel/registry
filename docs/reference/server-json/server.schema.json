@@ -134,17 +134,7 @@
           ]
         },
         "transport": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/StdioTransport"
-            },
-            {
-              "$ref": "#/definitions/StreamableHttpTransport"
-            },
-            {
-              "$ref": "#/definitions/SseTransport"
-            }
-          ],
+          "$ref": "#/definitions/LocalTransport",
           "description": "Transport protocol configuration for the package"
         },
         "runtimeArguments": {
@@ -419,41 +409,73 @@
         }
       }
     },
-    "RemoteTransport": {
-      "type": "object",
-      "required": [
-        "type",
-        "url"
-      ],
-      "properties": {
-        "type": {
-          "type": "string",
-          "enum": [
-            "streamable-http",
-            "sse"
-          ],
-          "description": "Remote transport type (only streamable-http and sse are supported for remote endpoints)"
+    "LocalTransport": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/StdioTransport"
         },
-        "url": {
-          "type": "string",
-          "description": "URL template for the remote transport. Variables in {curly_braces} reference variable names from the 'variables' object. If variables are not provided, {curly_braces} should be treated as literal text. After variable substitution, this should produce a valid URI.",
-          "example": "https://api.example.com/mcp/{tenant_id}"
+        {
+          "$ref": "#/definitions/StreamableHttpTransport"
         },
-        "headers": {
-          "type": "array",
-          "description": "HTTP headers to include",
-          "items": {
-            "$ref": "#/definitions/KeyValueInput"
-          }
-        },
-        "variables": {
-          "type": "object",
-          "description": "Configuration variables that can be referenced in URL template {curly_braces}. The key is the variable name, and the value defines the variable properties.",
-          "additionalProperties": {
-            "$ref": "#/definitions/Input"
-          }
+        {
+          "$ref": "#/definitions/SseTransport"
         }
-      }
+      ],
+      "description": "Transport protocol configuration for local/package context"
+    },
+    "RemoteTransport": {
+      "anyOf": [
+        {
+          "allOf": [
+            {
+              "$ref": "#/definitions/StreamableHttpTransport"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "description": "URL template for the streamable-http transport. Variables in {curly_braces} reference variable names from the 'variables' object. If variables are not provided, {curly_braces} should be treated as literal text. After variable substitution, this should produce a valid URI.",
+                  "example": "https://api.example.com/mcp/{tenant_id}"
+                },
+                "variables": {
+                  "type": "object",
+                  "description": "Configuration variables that can be referenced in URL template {curly_braces}. The key is the variable name, and the value defines the variable properties.",
+                  "additionalProperties": {
+                    "$ref": "#/definitions/Input"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/definitions/SseTransport"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "Server-Sent Events endpoint URL template. Variables in {curly_braces} reference variable names from the 'variables' object. If variables are not provided, {curly_braces} should be treated as literal text. After variable substitution, this should produce a valid URI.",
+                  "example": "https://mcp-fs.example.com/sse/{tenant_id}"
+                },
+                "variables": {
+                  "type": "object",
+                  "description": "Configuration variables that can be referenced in URL template {curly_braces}. The key is the variable name, and the value defines the variable properties.",
+                  "additionalProperties": {
+                    "$ref": "#/definitions/Input"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "description": "Transport protocol configuration for remote context - extends StreamableHttpTransport or SseTransport with variables"
     },
     "ServerDetail": {
       "description": "Schema for a static representation of an MCP server. Used in various contexts related to discovery, installation, and configuration.",
