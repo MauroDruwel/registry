@@ -683,13 +683,12 @@ This example demonstrates URL templating for remote servers, useful for multi-te
     {
       "type": "streamable-http",
       "url": "https://api.example.github.io/mcp/{tenant_id}",
-      "variables": [
-        {
-          "name": "tenant_id",
+      "variables": {
+        "tenant_id": {
           "description": "Tenant identifier (e.g., 'us-cell1', 'emea-cell1')",
           "isRequired": true
         }
-      ]
+      }
     }
   ]
 }

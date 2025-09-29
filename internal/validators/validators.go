@@ -296,10 +296,10 @@ func collectAvailableVariables(pkg *model.Package) []string {
 func collectRemoteTransportVariables(transport *model.Transport) []string {
 	var variables []string
 
-	// Add variable names from the Variables field
-	for _, variable := range transport.Variables {
-		if variable.Name != "" {
-			variables = append(variables, variable.Name)
+	// Add variable names from the Variables map
+	for variableName := range transport.Variables {
+		if variableName != "" {
+			variables = append(variables, variableName)
 		}
 	}
 

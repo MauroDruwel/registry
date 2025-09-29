@@ -377,7 +377,7 @@
         },
         "url": {
           "type": "string",
-          "description": "URL template for the streamable-http transport. Variables in {curly_braces} reference variable names from the 'variables' array. If variables are not provided, {curly_braces} should be treated as literal text. After variable substitution, this should produce a valid URI.",
+          "description": "URL template for the streamable-http transport. Variables in {curly_braces} reference variable names from the 'variables' object. If variables are not provided, {curly_braces} should be treated as literal text. After variable substitution, this should produce a valid URI.",
           "example": "https://api.example.com/mcp"
         },
         "headers": {
@@ -388,10 +388,10 @@
           }
         },
         "variables": {
-          "type": "array",
-          "description": "Configuration variables that can be referenced in URL template {curly_braces} via their name property",
-          "items": {
-            "$ref": "#/definitions/KeyValueInput"
+          "type": "object",
+          "description": "Configuration variables that can be referenced in URL template {curly_braces}. The key is the variable name, and the value defines the variable properties.",
+          "additionalProperties": {
+            "$ref": "#/definitions/Input"
           }
         }
       }
@@ -414,7 +414,7 @@
         "url": {
           "type": "string",
           "format": "uri",
-          "description": "Server-Sent Events endpoint URL template. Variables in {curly_braces} reference variable names from the 'variables' array. If variables are not provided, {curly_braces} should be treated as literal text. After variable substitution, this should produce a valid URI.",
+          "description": "Server-Sent Events endpoint URL template. Variables in {curly_braces} reference variable names from the 'variables' object. If variables are not provided, {curly_braces} should be treated as literal text. After variable substitution, this should produce a valid URI.",
           "example": "https://mcp-fs.example.com/sse"
         },
         "headers": {
@@ -425,10 +425,10 @@
           }
         },
         "variables": {
-          "type": "array",
-          "description": "Configuration variables that can be referenced in URL template {curly_braces} via their name property",
-          "items": {
-            "$ref": "#/definitions/KeyValueInput"
+          "type": "object",
+          "description": "Configuration variables that can be referenced in URL template {curly_braces}. The key is the variable name, and the value defines the variable properties.",
+          "additionalProperties": {
+            "$ref": "#/definitions/Input"
           }
         }
       }

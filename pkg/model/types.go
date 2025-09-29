@@ -11,10 +11,10 @@ const (
 
 // Transport represents transport configuration with optional URL templating
 type Transport struct {
-	Type      string          `json:"type"`
-	URL       string          `json:"url,omitempty"`
-	Headers   []KeyValueInput `json:"headers,omitempty"`
-	Variables []KeyValueInput `json:"variables,omitempty"`
+	Type      string           `json:"type"`
+	URL       string           `json:"url,omitempty"`
+	Headers   []KeyValueInput  `json:"headers,omitempty"`
+	Variables map[string]Input `json:"variables,omitempty"`
 }
 
 // Package represents a package configuration
