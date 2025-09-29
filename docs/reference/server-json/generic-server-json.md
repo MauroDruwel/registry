@@ -696,6 +696,40 @@ This example demonstrates URL templating for remote servers, useful for multi-te
 
 Clients configure the tenant identifier, and the `{tenant_id}` variable in the URL gets replaced with the provided variable value to connect to the appropriate tenant endpoint (e.g., `https://api.example.github.io/mcp/us-cell1` or `https://api.example.github.io/mcp/emea-cell1`).
 
+### Local Server with URL Templating
+
+This example demonstrates URL templating for local/package servers, where variables reference parent Package arguments or environment variables:
+
+```json
+{
+  "name": "io.github.example/configurable-server",
+  "description": "Local MCP server with configurable port",
+  "version": "1.0.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@example/mcp-server",
+      "version": "1.0.0",
+      "transport": {
+        "type": "streamable-http",
+        "url": "http://localhost:{port}/mcp"
+      },
+      "packageArguments": [
+        {
+          "type": "named",
+          "name": "--port",
+          "description": "Port for the server to listen on",
+          "default": "3000",
+          "valueHint": "port"
+        }
+      ]
+    }
+  ]
+}
+```
+
+The `{port}` variable in the URL references either the `--port` argument name or the `port` valueHint from packageArguments. When the package runs with `--port 8080`, the URL becomes `http://localhost:8080/mcp`.
+
 ### Deprecated Server Example
 
 ```json
