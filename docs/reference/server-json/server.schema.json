@@ -367,7 +367,7 @@
         },
         "url": {
           "type": "string",
-          "description": "URL template for the streamable-http transport. Variables in {curly_braces} can reference argument valueHints, argument names, or environment variable names from the parent Package. After variable substitution, this should produce a valid URI.",
+          "description": "URL template for the streamable-http transport. Variables in {curly_braces} are resolved based on context: In Package context, they reference argument valueHints, argument names, or environment variable names from the parent Package. In Remote context, they reference variables from the transport's 'variables' object. After variable substitution, this should produce a valid URI.",
           "example": "https://api.example.com/mcp"
         },
         "headers": {
@@ -397,7 +397,7 @@
         "url": {
           "type": "string",
           "format": "uri",
-          "description": "Server-Sent Events endpoint URL template. Variables in {curly_braces} can reference argument valueHints, argument names, or environment variable names from the parent Package. After variable substitution, this should produce a valid URI.",
+          "description": "Server-Sent Events endpoint URL template. Variables in {curly_braces} are resolved based on context: In Package context, they reference argument valueHints, argument names, or environment variable names from the parent Package. In Remote context, they reference variables from the transport's 'variables' object. After variable substitution, this should produce a valid URI.",
           "example": "https://mcp-fs.example.com/sse"
         },
         "headers": {
@@ -433,11 +433,6 @@
             {
               "type": "object",
               "properties": {
-                "url": {
-                  "type": "string",
-                  "description": "URL template for the streamable-http transport. Variables in {curly_braces} reference variable names from the 'variables' object. If variables are not provided, {curly_braces} should be treated as literal text. After variable substitution, this should produce a valid URI.",
-                  "example": "https://api.example.com/mcp/{tenant_id}"
-                },
                 "variables": {
                   "type": "object",
                   "description": "Configuration variables that can be referenced in URL template {curly_braces}. The key is the variable name, and the value defines the variable properties.",
@@ -457,12 +452,6 @@
             {
               "type": "object",
               "properties": {
-                "url": {
-                  "type": "string",
-                  "format": "uri",
-                  "description": "Server-Sent Events endpoint URL template. Variables in {curly_braces} reference variable names from the 'variables' object. If variables are not provided, {curly_braces} should be treated as literal text. After variable substitution, this should produce a valid URI.",
-                  "example": "https://mcp-fs.example.com/sse/{tenant_id}"
-                },
                 "variables": {
                   "type": "object",
                   "description": "Configuration variables that can be referenced in URL template {curly_braces}. The key is the variable name, and the value defines the variable properties.",
