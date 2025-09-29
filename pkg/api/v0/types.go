@@ -37,7 +37,7 @@ type ServerJSON struct {
 	Version     string            `json:"version"`
 	WebsiteURL  string            `json:"websiteUrl,omitempty"`
 	Packages    []model.Package   `json:"packages,omitempty"`
-	Remotes     []model.RemoteTransport `json:"remotes,omitempty"`
+	Remotes     []model.Transport `json:"remotes,omitempty"`
 	Meta        *ServerMeta       `json:"_meta,omitempty"`
 }
 

@@ -293,7 +293,7 @@ func collectAvailableVariables(pkg *model.Package) []string {
 }
 
 // collectRemoteTransportVariables extracts available variable names from a remote transport
-func collectRemoteTransportVariables(transport *model.RemoteTransport) []string {
+func collectRemoteTransportVariables(transport *model.Transport) []string {
 	var variables []string
 
 	// Add variable names from the Variables map
@@ -338,7 +338,7 @@ func validatePackageTransport(transport *model.Transport, availableVariables []s
 }
 
 // validateRemoteTransport validates a remote transport with optional templating
-func validateRemoteTransport(obj *model.RemoteTransport) error {
+func validateRemoteTransport(obj *model.Transport) error {
 	// Validate transport type is supported - remotes only support streamable-http and sse
 	switch obj.Type {
 	case model.TransportTypeStreamableHTTP, model.TransportTypeSSE:

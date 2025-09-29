@@ -213,7 +213,7 @@ func TestValidate(t *testing.T) {
 						},
 					},
 				},
-				Remotes: []model.RemoteTransport{
+				Remotes: []model.Transport{
 					{
 						Type: "streamable-http",
 						URL:  "https://example.com/remote",
@@ -531,7 +531,7 @@ func TestValidate(t *testing.T) {
 					Source: "github",
 				},
 				Version: "1.0.0",
-				Remotes: []model.RemoteTransport{
+				Remotes: []model.Transport{
 					{
 						Type: "streamable-http",
 						URL:  "not-a-valid-url",
@@ -550,7 +550,7 @@ func TestValidate(t *testing.T) {
 					Source: "github",
 				},
 				Version: "1.0.0",
-				Remotes: []model.RemoteTransport{
+				Remotes: []model.Transport{
 					{
 						Type: "streamable-http",
 						URL:  "example.com/remote",
@@ -569,7 +569,7 @@ func TestValidate(t *testing.T) {
 					Source: "github",
 				},
 				Version: "1.0.0",
-				Remotes: []model.RemoteTransport{
+				Remotes: []model.Transport{
 					{
 						Type: "streamable-http",
 						URL:  "http://localhost",
@@ -588,7 +588,7 @@ func TestValidate(t *testing.T) {
 					Source: "github",
 				},
 				Version: "1.0.0",
-				Remotes: []model.RemoteTransport{
+				Remotes: []model.Transport{
 					{
 						Type: "streamable-http",
 						URL:  "http://localhost:3000",
@@ -607,7 +607,7 @@ func TestValidate(t *testing.T) {
 					Source: "github",
 				},
 				Version: "1.0.0",
-				Remotes: []model.RemoteTransport{
+				Remotes: []model.Transport{
 					{
 						Type: "streamable-http",
 						URL:  "https://valid.com/remote",
@@ -646,7 +646,7 @@ func TestValidate(t *testing.T) {
 				},
 				Version:  "1.0.0",
 				Packages: []model.Package{},
-				Remotes:  []model.RemoteTransport{},
+				Remotes:  []model.Transport{},
 			},
 			expectedError: "",
 		},
@@ -677,7 +677,7 @@ func TestValidate_RemoteNamespaceMatch(t *testing.T) {
 			name: "valid match - example.com domain",
 			serverDetail: apiv0.ServerJSON{
 				Name: "com.example/test-server",
-				Remotes: []model.RemoteTransport{
+				Remotes: []model.Transport{
 					{
 						Type: "streamable-http",
 						URL:  "https://example.com/mcp",
@@ -690,7 +690,7 @@ func TestValidate_RemoteNamespaceMatch(t *testing.T) {
 			name: "valid match - subdomain mcp.example.com",
 			serverDetail: apiv0.ServerJSON{
 				Name: "com.example/test-server",
-				Remotes: []model.RemoteTransport{
+				Remotes: []model.Transport{
 					{
 						Type: "streamable-http",
 						URL:  "https://mcp.example.com/endpoint",
@@ -703,7 +703,7 @@ func TestValidate_RemoteNamespaceMatch(t *testing.T) {
 			name: "valid match - api subdomain",
 			serverDetail: apiv0.ServerJSON{
 				Name: "com.example/api-server",
-				Remotes: []model.RemoteTransport{
+				Remotes: []model.Transport{
 					{
 						Type: "streamable-http",
 						URL:  "https://api.example.com/mcp",
@@ -716,7 +716,7 @@ func TestValidate_RemoteNamespaceMatch(t *testing.T) {
 			name: "invalid - wrong domain",
 			serverDetail: apiv0.ServerJSON{
 				Name: "com.example/test-server",
-				Remotes: []model.RemoteTransport{
+				Remotes: []model.Transport{
 					{
 						Type: "streamable-http",
 						URL:  "https://google.com/mcp",
@@ -730,7 +730,7 @@ func TestValidate_RemoteNamespaceMatch(t *testing.T) {
 			name: "invalid - different domain entirely",
 			serverDetail: apiv0.ServerJSON{
 				Name: "com.microsoft/server",
-				Remotes: []model.RemoteTransport{
+				Remotes: []model.Transport{
 					{
 						Type: "streamable-http",
 						URL:  "https://api.github.com/endpoint",
@@ -744,7 +744,7 @@ func TestValidate_RemoteNamespaceMatch(t *testing.T) {
 			name: "invalid URL format",
 			serverDetail: apiv0.ServerJSON{
 				Name: "com.example/test",
-				Remotes: []model.RemoteTransport{
+				Remotes: []model.Transport{
 					{
 						Type: "streamable-http",
 						URL:  "not-a-valid-url",
@@ -758,7 +758,7 @@ func TestValidate_RemoteNamespaceMatch(t *testing.T) {
 			name: "empty remotes array",
 			serverDetail: apiv0.ServerJSON{
 				Name:    "com.example/test",
-				Remotes: []model.RemoteTransport{},
+				Remotes: []model.Transport{},
 			},
 			expectError: false,
 		},
@@ -766,7 +766,7 @@ func TestValidate_RemoteNamespaceMatch(t *testing.T) {
 			name: "multiple valid remotes - different subdomains",
 			serverDetail: apiv0.ServerJSON{
 				Name: "com.example/server",
-				Remotes: []model.RemoteTransport{
+				Remotes: []model.Transport{
 					{
 						Type: "streamable-http",
 						URL:  "https://api.example.com/sse",
@@ -783,7 +783,7 @@ func TestValidate_RemoteNamespaceMatch(t *testing.T) {
 			name: "one valid, one invalid remote",
 			serverDetail: apiv0.ServerJSON{
 				Name: "com.example/server",
-				Remotes: []model.RemoteTransport{
+				Remotes: []model.Transport{
 					{
 						Type: "streamable-http",
 						URL:  "https://example.com/sse",
@@ -1351,7 +1351,7 @@ func TestValidate_TransportValidation(t *testing.T) {
 				Name:        "com.example/test-server",
 				Description: "A test server",
 				Version:     "1.0.0",
-				Remotes: []model.RemoteTransport{
+				Remotes: []model.Transport{
 					{
 						Type: "streamable-http",
 						URL:  "https://example.com/mcp",
@@ -1366,7 +1366,7 @@ func TestValidate_TransportValidation(t *testing.T) {
 				Name:        "com.example/test-server",
 				Description: "A test server",
 				Version:     "1.0.0",
-				Remotes: []model.RemoteTransport{
+				Remotes: []model.Transport{
 					{
 						Type: "streamable-http",
 					},
@@ -1381,7 +1381,7 @@ func TestValidate_TransportValidation(t *testing.T) {
 				Name:        "com.example/test-server",
 				Description: "A test server",
 				Version:     "1.0.0",
-				Remotes: []model.RemoteTransport{
+				Remotes: []model.Transport{
 					{
 						Type: "sse",
 						URL:  "https://example.com/events",
@@ -1396,7 +1396,7 @@ func TestValidate_TransportValidation(t *testing.T) {
 				Name:        "com.example/test-server",
 				Description: "A test server",
 				Version:     "1.0.0",
-				Remotes: []model.RemoteTransport{
+				Remotes: []model.Transport{
 					{
 						Type: "sse",
 					},
@@ -1411,7 +1411,7 @@ func TestValidate_TransportValidation(t *testing.T) {
 				Name:        "com.example/test-server",
 				Description: "A test server",
 				Version:     "1.0.0",
-				Remotes: []model.RemoteTransport{
+				Remotes: []model.Transport{
 					{
 						Type: "stdio",
 					},
@@ -1425,7 +1425,7 @@ func TestValidate_TransportValidation(t *testing.T) {
 				Name:        "com.example/test-server",
 				Description: "A test server",
 				Version:     "1.0.0",
-				Remotes: []model.RemoteTransport{
+				Remotes: []model.Transport{
 					{
 						Type: "websocket",
 						URL:  "wss://example.com/ws",
@@ -1460,7 +1460,7 @@ func TestValidate_TransportValidation(t *testing.T) {
 				Name:        "com.example/test-server",
 				Description: "A test server",
 				Version:     "1.0.0",
-				Remotes: []model.RemoteTransport{
+				Remotes: []model.Transport{
 					{
 						Type: "streamable-http",
 						URL:  "http://localhost:3000/mcp",
@@ -1584,7 +1584,7 @@ func createValidServerWithArgument(arg model.Argument) apiv0.ServerJSON {
 				RuntimeArguments: []model.Argument{arg},
 			},
 		},
-		Remotes: []model.RemoteTransport{
+		Remotes: []model.Transport{
 			{
 				Type: "streamable-http",
 				URL:  "https://example.com/remote",
