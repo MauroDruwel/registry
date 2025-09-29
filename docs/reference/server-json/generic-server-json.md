@@ -672,7 +672,7 @@ For MCP servers that follow a custom installation path or are embedded in applic
 
 ### Remote Server with URL Templating
 
-This example demonstrates URL templating for remote servers, useful for multi-tenant deployments where each instance has its own endpoint:
+This example demonstrates URL templating for remote servers, useful for multi-tenant deployments where each instance has its own endpoint. Unlike Package transports (which reference parent arguments/environment variables), Remote transports define their own variables:
 
 ```json
 {

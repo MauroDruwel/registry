@@ -9,8 +9,15 @@ const (
 	StatusDeleted    Status = "deleted"
 )
 
-// Transport represents transport configuration with optional URL templating
+// Transport represents transport configuration for Package context
 type Transport struct {
+	Type    string          `json:"type"`
+	URL     string          `json:"url,omitempty"`
+	Headers []KeyValueInput `json:"headers,omitempty"`
+}
+
+// RemoteTransport represents transport configuration for Remote context with variables support
+type RemoteTransport struct {
 	Type      string           `json:"type"`
 	URL       string           `json:"url,omitempty"`
 	Headers   []KeyValueInput  `json:"headers,omitempty"`

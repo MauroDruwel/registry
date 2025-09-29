@@ -335,7 +335,7 @@ func TestPublishEndpoint(t *testing.T) {
 						},
 					},
 				},
-				Remotes: []model.Transport{
+				Remotes: []model.RemoteTransport{
 					{
 						Type: model.TransportTypeStreamableHTTP,
 						URL:  "https://example.com/api",
