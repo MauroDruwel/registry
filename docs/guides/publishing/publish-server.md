@@ -48,7 +48,7 @@ brew install mcp-publisher
 <summary><strong>⬇️ macOS/Linux/WSL: Pre-built binaries</strong></summary>
 
 ```bash
-curl -L "https://github.com/modelcontextprotocol/registry/releases/download/latest/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher && sudo mv mcp-publisher /usr/local/bin/
+latest=$(curl -s https://api.github.com/repos/modelcontextprotocol/registry/releases/latest | grep tag_name | cut -d '"' -f 4); version=${latest#v}; curl -L "https://github.com/modelcontextprotocol/registry/releases/download/${latest}/mcp-publisher_${version}_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher && sudo mv mcp-publisher /usr/local/bin/
 ```
 
 </details>
@@ -74,7 +74,7 @@ export PATH=$PATH:$(pwd)/bin
 <summary><strong>🪟 Windows PowerShell: Pre-built binaries</strong></summary>
 
 ```powershell
-$arch = if ([System.Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture -eq "Arm64") { "arm64" } else { "amd64" }; Invoke-WebRequest -Uri "https://github.com/modelcontextprotocol/registry/releases/download/latest/mcp-publisher_windows_$arch.tar.gz" -OutFile "mcp-publisher.tar.gz"; tar xf mcp-publisher.tar.gz mcp-publisher.exe; rm mcp-publisher.tar.gz
+$latest=(Invoke-RestMethod -Uri "https://api.github.com/repos/modelcontextprotocol/registry/releases/latest").tag_name; $version=$latest.TrimStart("v"); $arch = if ([System.Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture -eq "Arm64") { "arm64" } else { "amd64" }; Invoke-WebRequest -Uri "https://github.com/modelcontextprotocol/registry/releases/download/$latest/mcp-publisher_${version}_windows_$arch.tar.gz" -OutFile "mcp-publisher.tar.gz"; tar xf mcp-publisher.tar.gz mcp-publisher.exe; rm mcp-publisher.tar.gz
 # Move mcp-publisher.exe to a directory in your PATH
 ```
 
